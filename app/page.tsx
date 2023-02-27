@@ -1,9 +1,9 @@
 'use client'
 import AddPost from './components/AddPost'
-import {useQuery} from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import Post from './components/Post'
-import { PostType } from './types/Posts'
+import { PostsType } from './types/Posts'
 
 //Fetch all posts
 const allPosts = async() => {
@@ -12,13 +12,13 @@ const allPosts = async() => {
 }
 
 export default function Home() {
-  const {data, error, isLoading} = useQuery<PostType[]>({
+  const {data, error, isLoading} = useQuery<PostsType[]>({
   queryFn: allPosts, 
   queryKey:["posts"]
 })
 if(error) return error
 if(isLoading) return 'Loading....'
-console.log(data)
+
   return (
     <main>
      <AddPost/>
