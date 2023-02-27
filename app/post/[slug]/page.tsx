@@ -18,7 +18,7 @@ const fetchDetails = async (slug: string) => {
 }
 
 export default function PostDetail(url: URL){
-    const {data, isLoading} = useQuery<PostType[]>({
+    const {data, isLoading} = useQuery<PostType>({
         queryKey: ['detail-post'],
         queryFn: () => fetchDetails(url.params.slug)
     })
@@ -27,11 +27,11 @@ export default function PostDetail(url: URL){
     return(
         <div>
             <Post 
-            id={data.id} 
-            name={data.user.name} 
-            avatar={data.user.image} 
-            postTitle={data.title} 
-            comments={data.Comment}
+            id={data?.id} 
+            name={data?.user.name} 
+            avatar={data?.user.image} 
+            postTitle={data?.title} 
+            comments={data?.Comment}
             />
             <AddComment id={data?.id}/>
             {data?.Comment?.map((comment) => (
@@ -45,7 +45,7 @@ export default function PostDetail(url: URL){
                     <h3 className="font-bold">{comment?.user?.name}</h3>
                     <h2 className="text-sm">{comment.createdAt}</h2>
                     </div>
-                    <div className="py-4">{comment.message}</div>
+                    <div className="py-4">{comment.title}</div>
                 </div>
             ))}
         </div>
